@@ -1,19 +1,24 @@
-// Configuration options for Next.js
+const withPWA = require("@ducanh2912/next-pwa").default({
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  swcMinify: true,
+  dest: "public",
+  fallbacks: {
+    //image: "/static/images/fallback.png",
+    document: "/offline", // if you want to fallback to a custom page rather than /_offline
+    // font: '/static/font/fallback.woff2',
+    // audio: ...,
+    // video: ...,
+  },
+  workboxOptions: {
+    disableDevLogs: true,
+  },
+  // ... other options you like
+});
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true, // Enable React strict mode for improved error handling
-    swcMinify: true,      // Enable SWC minification for improved performance
-    compiler: {
-      removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
-    },
-  };
-  
-  // Configuration object tells the next-pwa plugin 
-  const withPWA = require("next-pwa")({
-    dest: "public", // Destination directory for the PWA files
-    disable: process.env.NODE_ENV === "development", // Disable PWA in development mode
-    register: true, // Register the PWA service worker
-    skipWaiting: true, // Skip waiting for service worker activation
-  });
-  
-  // Export the combined configuration for Next.js with PWA support
-  module.exports = withPWA(nextConfig);
+  // ... other options you like
+};
+
+module.exports = withPWA(nextConfig);
